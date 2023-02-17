@@ -1,0 +1,22 @@
+kendo-datepicker {
+  width: 100%;
+  border-width: 1px 0;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+kendo-dropdownlist {
+  width: 100%;
+  border-width: 1px 0;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+
+}
+
+:host ::ng-deep  kendo-dateinput {
+  width: 100%;
+}
+
+:host ::ng-deep button {
+  box-shadow: none;
+}

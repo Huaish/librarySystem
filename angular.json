@@ -50,6 +50,9 @@
               "src/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
               "src/styles.css"
             ],
             "scripts": []
@@ -112,6 +115,9 @@
               "src/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
               "src/styles.css"
             ],
             "scripts": []
@@ -119,5 +125,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "0571b385-d2c6-465d-960c-1bef99142134"
   }
 }
