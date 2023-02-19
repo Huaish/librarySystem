@@ -6,20 +6,32 @@ import { AppComponent } from './app.component';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-
-
-
+import { BookGridComponent } from './book-grid/book-grid.component';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { LabelModule } from "@progress/kendo-angular-label";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddBookComponent } from './add-book/add-book.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BookGridComponent,
+    AddBookComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     DropDownsModule,
     BrowserAnimationsModule,
-    DateInputsModule
+    DateInputsModule,
+    GridModule,
+    DialogsModule,
+    InputsModule,
+    LabelModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
