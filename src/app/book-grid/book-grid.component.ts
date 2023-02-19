@@ -1,12 +1,13 @@
 import { EventEmitter } from '@angular/core';
-import { bookData } from './../data.book';
 import { BookService } from './../book.service';
 import { Component, Input, Output } from '@angular/core';
 import { RemoveEvent } from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor, filterBy } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-book-grid',
   templateUrl: './book-grid.component.html',
+  styleUrls: ['./book-grid.component.css']
 })
 export class BookGridComponent {
   constructor(private bookService: BookService) { }
@@ -31,9 +32,12 @@ export class BookGridComponent {
       this.gridData = this.bookService.get();
       return;
     }
-    // search by BookName contains value words
-    this.gridData = this.gridData.filter((item: any) => item.BookName.includes(value));
-
+    // search by BookName contains value words and not case sensitive
+    this.gridData = this.bookService.get().filter((item: any) => {
+      return item.BookName.toLowerCase().includes(value.toLowerCase());
+    }
+    );
   }
+
 }
 
