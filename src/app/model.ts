@@ -1,17 +1,19 @@
+import { formatDate } from '@angular/common';
 export class Book {
   public BookId: number;
   public BookCategory: string;
   public BookName: string;
   public BookAuthor: string;
-  public BookBoughtDate: Date;
+  public BookBoughtDate: string;
   public BookPublisher: string;
 
-  constructor() {
-    this.BookId = 0;
-    this.BookCategory = '';
-    this.BookName = '';
-    this.BookAuthor = '';
-    this.BookBoughtDate = new Date();
-    this.BookPublisher = '';
+  constructor(data: Book | null) {
+    this.BookId = data?.BookId || 0;
+    this.BookCategory = data?.BookCategory || '';
+    this.BookName = data?.BookName || '';
+    this.BookAuthor = data?.BookAuthor || '';
+    this.BookBoughtDate = formatDate(data?.BookBoughtDate || new Date(), 'yyyy-MM-dd', 'en');
+    this.BookPublisher = data?.BookPublisher || '';
+
   }
 }

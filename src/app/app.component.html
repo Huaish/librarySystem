@@ -1,74 +1,22 @@
 <main>
   <div class="uk-container align-center">
-    <!-- <div class="k-overlay" *ngIf="opened"></div> set background overlay  when window is opened -->
-    <!-- <button class="k-button k-primary" (click)="open($event)">+新增</button> -->
-    <!-- <kendo-window
+    <button class="k-button k-primary" (click)="open($event)">+新增</button>
+    <div class="k-overlay" *ngIf="active"></div>
+    <kendo-window
       title="新增書籍"
-      *ngIf="opened"
-      (dragEnd)="dragEnd()"
-      (close)="close()"
+      *ngIf="active"
       [width]="width"
       [height]="height"
+      [draggable]="true"
+      (dragEnd)="onDragEnd()"
+      (close)="close()"
       [(top)]="windowTop"
       [(left)]="windowLeft"
-      [draggable]="true"
     >
-      <ul class="fieldlist">
-        <li>
-          <img class="book-image" src="../assets/image/database.jpg" alt="" />
-        </li>
-        <li>
-          <label>圖書類別</label>
-
-          <kendo-dropdownlist
-            [data]="dropDownItems"
-            [defaultItem]="defaultItem"
-            textField="text"
-            valueField="value"
-            [style]="'width: 100%;'"
-            [ngClass]="{ 'k-textbox': true }"
-          >
-          </kendo-dropdownlist>
-        </li>
-        <li>
-          <label>書名</label>
-          <input
-            id="book_name"
-            type="text"
-            class="k-textbox"
-            style="width: 100%"
-          />
-        </li>
-        <li>
-          <label>作者</label>
-          <input
-            id="book_author"
-            type="text"
-            class="k-textbox"
-            style="width: 100%"
-          />
-        </li>
-        <li>
-          <label>購買日期</label>
-
-          <kendo-datepicker
-            [format]="'yyyy-MM-dd'"
-            calendarType="classic"
-            [ngClass]="{ 'k-textbox': true }"
-          >
-          </kendo-datepicker>
-        </li>
-
-        <li class="uk-text-right">
-          <button class="k-button k-primary btn-add-book" (click)="clickBtn()">
-            新增
-          </button>
-        </li>
-      </ul>
-    </kendo-window> -->
-
+      <app-add-book (submit)="onSubmit($event)"></app-add-book>
+    </kendo-window>
     <div class="uk-padding-small uk-padding-remove-horizontal">
-      <app-book-grid></app-book-grid>
+      <app-book-grid [(gridData)]="gridData"></app-book-grid>
     </div>
   </div>
 </main>

@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
-import { categories } from './data.categories';
+import { BookService } from './book.service';
+import { Book } from './model';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,15 @@ import { categories } from './data.categories';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private bookService: BookService) { }
   public screenWidth = window.innerWidth;
   public screenHeight = window.innerHeight;
   public width = 500;
   public height = 700;
+  public windowTop = this.screenHeight / 2 - this.height / 2;
+  public windowLeft = this.screenWidth / 2 - this.width / 2;
+  public active = false;
+  public gridData: unknown[] = this.bookService.get();
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -18,30 +24,26 @@ export class AppComponent {
     this.screenHeight = window.innerHeight;
   }
 
-  public opened = false;
-  public close(): void {
-    this.opened = false;
-  }
-
-  public windowTop = this.screenHeight/2 - this.height/2;
-  public windowLeft = this.screenWidth/2 - this.width/2;
   public open(e: MouseEvent): void {
-    this.windowTop = this.screenHeight/2 - this.height/2;
-    this.windowLeft = this.screenWidth/2 - this.width/2;
-    this.opened = true;
+    this.windowTop = this.screenHeight / 2 - this.height / 2;
+    this.windowLeft = this.screenWidth / 2 - this.width / 2;
+    this.active = true;
   }
 
-  public dragEnd(): void {
-    if(this.windowTop < 0) this.windowTop = 0;
-    if(this.windowLeft < 0) this.windowLeft = 0;
-    if(this.windowTop + this.height > this.screenHeight) this.windowTop = this.screenHeight - this.height;
-    if(this.windowLeft + this.width > this.screenWidth) this.windowLeft = this.screenWidth - this.width;
+  public close(): void {
+    this.active = false;
   }
 
-  public dropDownItems = categories;
-  public defaultItem = { text: "語言", value: null };
+  public onDragEnd(): void {
+    if (this.windowTop < 0) this.windowTop = 0;
+    if (this.windowLeft < 0) this.windowLeft = 0;
+    if (this.windowTop + this.height > this.screenHeight) this.windowTop = this.screenHeight - this.height;
+    if (this.windowLeft + this.width > this.screenWidth) this.windowLeft = this.screenWidth - this.width;
+  }
 
-  clickBtn() {
-    console.log("click");
+  public onSubmit(e: Book): void {
+    this.bookService.addNewBook(e);
+    this.active = false;
+    this.gridData = this.bookService.get();
   }
 }
