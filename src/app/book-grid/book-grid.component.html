@@ -1,12 +1,10 @@
 <kendo-grid
-  [kendoGridReactiveEditing]="createFormGroup"
   [kendoGridBinding]="gridData"
   [pageSize]="20"
   [pageable]="true"
   [sortable]="true"
   [height]="700"
   (remove)="removeHandler($event)"
-  (edit)="editHandler($event)"
 >
   <ng-template kendoGridToolbarTemplate>
     <div class="book-grid-toolbar">
@@ -16,37 +14,20 @@
         type="text"
       />
     </div>
-
-    <button (click)="addHandler($event)" class="k-button k-primary">
-      + 新增
-    </button>
   </ng-template>
   <kendo-grid-column
     field="BookId"
     title="書籍編號"
-    [width]="150"
+    [width]="80"
   ></kendo-grid-column>
   <kendo-grid-column field="BookName" title="書籍名稱"></kendo-grid-column>
-  <kendo-grid-column
-    field="BookCategory"
-    title="書籍種類"
-    [width]="150"
-  ></kendo-grid-column>
-  <kendo-grid-column
-    field="BookAuthor"
-    title="作者"
-    [width]="150"
-  ></kendo-grid-column>
+  <kendo-grid-column field="BookCategory" title="書籍種類"></kendo-grid-column>
+  <kendo-grid-column field="BookAuthor" title="作者"></kendo-grid-column>
   <kendo-grid-column
     field="BookBoughtDate"
     title="購買日期"
-    [width]="150"
   ></kendo-grid-column>
-  <kendo-grid-column
-    field="BookPublisher"
-    title="出版商"
-    [width]="200"
-  ></kendo-grid-column>
+  <kendo-grid-column field="BookPublisher" title="出版商"></kendo-grid-column>
   <kendo-grid-command-column title=" " [width]="120">
     <ng-template kendoGridCellTemplate let-isNew="isNew">
       <button kendoGridRemoveCommand [primary]="true" class="k-button">
@@ -55,5 +36,3 @@
     </ng-template>
   </kendo-grid-command-column>
 </kendo-grid>
-
-<app-add-book [opened]="opened"></app-add-book>
