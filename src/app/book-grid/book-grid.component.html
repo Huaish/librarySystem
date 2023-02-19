@@ -8,10 +8,11 @@
 >
   <ng-template kendoGridToolbarTemplate>
     <div class="book-grid-toolbar">
-      <input
+      <kendo-textbox
         class="book-grid-search"
         placeholder="我想要找......"
         type="text"
+        (valueChange)="search($event)"
       />
     </div>
   </ng-template>

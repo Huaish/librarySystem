@@ -9,14 +9,9 @@ import { RemoveEvent } from '@progress/kendo-angular-grid';
   templateUrl: './book-grid.component.html',
 })
 export class BookGridComponent {
-  constructor(private bookService: BookService) {
-    this.gridData = [];
-  }
+  constructor(private bookService: BookService) { }
 
-
-  // public gridData: unknown[] = this.bookService.get();
-
-  @Input() public gridData: unknown[];
+  @Input() public gridData: unknown[] = [];
   @Output() public gridDataChange = new EventEmitter<unknown[]>();
 
   public removeHandler(e: RemoveEvent): void {
@@ -28,6 +23,17 @@ export class BookGridComponent {
     else {
       e.dataItem = null;
     }
+  }
+
+  public search(value: string): void {
+    //if value length < 2, return all data
+    if (value.length < 2) {
+      this.gridData = this.bookService.get();
+      return;
+    }
+    // search by BookName contains value words
+    this.gridData = this.gridData.filter((item: any) => item.BookName.includes(value));
+
   }
 }
 
