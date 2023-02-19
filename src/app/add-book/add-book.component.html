@@ -1,0 +1,60 @@
+<div class="k-overlay" *ngIf="opened"></div>
+<kendo-window
+  title="新增書籍"
+  *ngIf="opened"
+  (dragEnd)="dragEnd()"
+  (close)="close()"
+  [width]="width"
+  [height]="height"
+  [(top)]="windowTop"
+  [(left)]="windowLeft"
+  [draggable]="true"
+>
+  <ul class="fieldlist">
+    <li>
+      <img class="book-image" src="../assets/image/database.jpg" alt="" />
+    </li>
+    <li>
+      <label>圖書類別</label>
+
+      <kendo-dropdownlist
+        [data]="dropDownItems"
+        [defaultItem]="defaultItem"
+        textField="text"
+        valueField="value"
+        [style]="'width: 100%;'"
+        [ngClass]="{ 'k-textbox': true }"
+      >
+      </kendo-dropdownlist>
+    </li>
+    <li>
+      <label>書名</label>
+      <input id="book_name" type="text" class="k-textbox" style="width: 100%" />
+    </li>
+    <li>
+      <label>作者</label>
+      <input
+        id="book_author"
+        type="text"
+        class="k-textbox"
+        style="width: 100%"
+      />
+    </li>
+    <li>
+      <label>購買日期</label>
+
+      <kendo-datepicker
+        [format]="'yyyy-MM-dd'"
+        calendarType="classic"
+        [ngClass]="{ 'k-textbox': true }"
+      >
+      </kendo-datepicker>
+    </li>
+
+    <li class="uk-text-right">
+      <button class="k-button k-primary btn-add-book" (click)="clickBtn()">
+        新增
+      </button>
+    </li>
+  </ul>
+</kendo-window>
