@@ -1,60 +1,64 @@
-<div class="k-overlay" *ngIf="opened"></div>
-<kendo-window
-  title="新增書籍"
-  *ngIf="opened"
-  (dragEnd)="dragEnd()"
-  (close)="close()"
-  [width]="width"
-  [height]="height"
-  [(top)]="windowTop"
-  [(left)]="windowLeft"
-  [draggable]="true"
->
-  <ul class="fieldlist">
-    <li>
-      <img class="book-image" src="../assets/image/database.jpg" alt="" />
-    </li>
-    <li>
-      <label>圖書類別</label>
-
+<form class="k-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <fieldset class="k-form-fieldset">
+    <img class="book-image" [src]="imgSrc" alt="" />
+    <kendo-formfield>
+      <kendo-label text="圖書類別"></kendo-label>
       <kendo-dropdownlist
-        [data]="dropDownItems"
-        [defaultItem]="defaultItem"
+        formControlName="BookCategory"
+        [data]="categoryList"
+        [valuePrimitive]="true"
         textField="text"
         valueField="value"
-        [style]="'width: 100%;'"
-        [ngClass]="{ 'k-textbox': true }"
+        (selectionChange)="onCategoryChange($event)"
       >
       </kendo-dropdownlist>
-    </li>
-    <li>
-      <label>書名</label>
-      <input id="book_name" type="text" class="k-textbox" style="width: 100%" />
-    </li>
-    <li>
-      <label>作者</label>
-      <input
-        id="book_author"
-        type="text"
-        class="k-textbox"
-        style="width: 100%"
-      />
-    </li>
-    <li>
-      <label>購買日期</label>
+      <kendo-formerror>請選擇圖書類別</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label text="書名"> </kendo-label>
+      <kendo-textbox formControlName="BookName" [clearButton]="true">
+      </kendo-textbox>
+      <kendo-formerror> 請填寫書名 </kendo-formerror>
+    </kendo-formfield>
 
+    <kendo-formfield>
+      <kendo-label text="作者"> </kendo-label>
+      <kendo-textbox formControlName="BookAuthor" [clearButton]="true">
+      </kendo-textbox>
+      <kendo-formerror>請填寫作者</kendo-formerror>
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label text="購買日期"> </kendo-label>
       <kendo-datepicker
+        formControlName="BookBoughtDate"
         [format]="'yyyy-MM-dd'"
         calendarType="classic"
-        [ngClass]="{ 'k-textbox': true }"
       >
       </kendo-datepicker>
-    </li>
+      <kendo-formerror>
+        <div *ngIf="check('BookBoughtDate', 'required'); else checkDate">
+          請選擇購買日期
+        </div>
+        <ng-template #checkDate>
+          <div *ngIf="check('BookBoughtDate', 'boughtDate')">
+            購買日期不得大於今天
+          </div>
+        </ng-template>
+      </kendo-formerror>
+    </kendo-formfield>
 
-    <li class="uk-text-right">
-      <button class="k-button k-primary btn-add-book" (click)="clickBtn()">
+    <kendo-formfield>
+      <kendo-label text="出版商"> </kendo-label>
+      <kendo-textbox formControlName="BookPublisher" [clearButton]="true">
+      </kendo-textbox>
+      <kendo-formerror>請填寫出版商</kendo-formerror>
+    </kendo-formfield>
+
+    <div class="k-form-buttons">
+      <button type="submit" class="k-button k-primary" [disabled]="!form.valid">
         新增
       </button>
-    </li>
-  </ul>
-</kendo-window>
+    </div>
+  </fieldset>
+</form>

@@ -1,50 +1,42 @@
-import { Component, HostListener, Input } from '@angular/core';
-import { categories } from '../data.categories';
-
+import { categories } from './../data.categories';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
-  styleUrls: ['./add-book.component.css']
 })
 export class AddBookComponent {
-  public screenWidth = window.innerWidth;
-  public screenHeight = window.innerHeight;
-  public width = 500;
-  public height = 700;
+  @Output() submit: EventEmitter<any> = new EventEmitter();
+  protected imgSrc: string = "../assets/image/資料庫.jpg";
+  protected categoryList = categories;
+  protected form: FormGroup = new FormGroup({
+    BookCategory: new FormControl(null, Validators.required),
+    BookName: new FormControl("", Validators.required),
+    BookAuthor: new FormControl("", Validators.required),
+    BookBoughtDate: new FormControl(new Date(), [Validators.required, this.boughtDateValidator()]),
+    BookPublisher: new FormControl("", Validators.required)
+  });
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.screenWidth = window.innerWidth;
-    this.screenHeight = window.innerHeight;
+  check(field: string, err: string) {
+    let formCtr = this.form.get(field);
+    return formCtr?.errors?.[err];
+  }
+
+  boughtDateValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return (control.value > new Date()) ? { boughtDate: true } : null;
+    };
   }
 
 
-  @Input() public opened: boolean = false;
-
-
-  public close(): void {
-    this.opened = false;
+  onCategoryChange(item: any): void {
+    this.imgSrc = "../assets/image/" + item.value + ".jpg";
   }
 
-  public windowTop = this.screenHeight / 2 - this.height / 2;
-  public windowLeft = this.screenWidth / 2 - this.width / 2;
-  public open(e: MouseEvent): void {
-    this.windowTop = this.screenHeight / 2 - this.height / 2;
-    this.windowLeft = this.screenWidth / 2 - this.width / 2;
-    this.opened = true;
-  }
-
-  public dragEnd(): void {
-    if (this.windowTop < 0) this.windowTop = 0;
-    if (this.windowLeft < 0) this.windowLeft = 0;
-    if (this.windowTop + this.height > this.screenHeight) this.windowTop = this.screenHeight - this.height;
-    if (this.windowLeft + this.width > this.screenWidth) this.windowLeft = this.screenWidth - this.width;
-  }
-
-  public dropDownItems = categories;
-  public defaultItem = { text: "語言", value: null };
-
-  clickBtn() {
-    console.log("click");
+  onSubmit() {
+    if (this.form.valid) {
+      this.submit.emit(this.form.value);
+    }
   }
 }
