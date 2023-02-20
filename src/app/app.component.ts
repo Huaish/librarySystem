@@ -9,8 +9,8 @@ import { Book } from './model';
 })
 export class AppComponent {
   constructor(private bookService: BookService) { }
-  public screenWidth = window.innerWidth;
-  public screenHeight = window.innerHeight;
+  private screenWidth = window.innerWidth;
+  private screenHeight = window.innerHeight;
   public width = 500;
   public height = 700;
   public windowTop = this.screenHeight / 2 - this.height / 2;

@@ -1,4 +1,5 @@
 .search-box{
+  width: 100%;
   border-color: gray !important;
   border-width: thin;
   border-radius: 3px;

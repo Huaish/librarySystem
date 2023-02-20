@@ -1,19 +1,22 @@
 <kendo-grid
   [kendoGridBinding]="gridData"
-  [pageSize]="20"
+  [pageSize]="gridState.take||20"
+  [skip]="gridState.skip||0"
   [pageable]="true"
   [sortable]="true"
   [height]="700"
   (remove)="removeHandler($event)"
+  (dataStateChange)="onDataStateChange($event)"
 >
   <ng-template kendoGridToolbarTemplate>
     <div class="book-grid-toolbar">
       <kendo-textbox
-        class="book-grid-search"
+        class="book-grid-search search-box"
         placeholder="我想要找......"
         type="text"
-        (valueChange)="search($event)"
-        ngClass="search-box"
+        [clearButton]="true"
+        [(value)]="searchTerms"
+        (valueChange)="search()"
       />
     </div>
   </ng-template>

@@ -13,6 +13,7 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { LabelModule } from "@progress/kendo-angular-label";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddBookComponent } from './add-book/add-book.component';
+import { FilterModule } from "@progress/kendo-angular-filter";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AddBookComponent } from './add-book/add-book.component';
     InputsModule,
     LabelModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FilterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

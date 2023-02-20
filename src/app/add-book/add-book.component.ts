@@ -8,9 +8,9 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 })
 export class AddBookComponent {
   @Output() submit: EventEmitter<any> = new EventEmitter();
-  protected imgSrc: string = "../assets/image/資料庫.jpg";
-  protected categoryList = categories;
-  protected form: FormGroup = new FormGroup({
+  public imgSrc: string = "../assets/image/資料庫.jpg";
+  public categoryList = categories;
+  public form: FormGroup = new FormGroup({
     BookCategory: new FormControl(null, Validators.required),
     BookName: new FormControl("", Validators.required),
     BookAuthor: new FormControl("", Validators.required),
@@ -18,23 +18,23 @@ export class AddBookComponent {
     BookPublisher: new FormControl("", Validators.required)
   });
 
-  check(field: string, err: string) {
+  public check(field: string, err: string) {
     let formCtr = this.form.get(field);
     return formCtr?.errors?.[err];
   }
 
-  boughtDateValidator(): ValidatorFn {
+  public boughtDateValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       return (control.value > new Date()) ? { boughtDate: true } : null;
     };
   }
 
 
-  onCategoryChange(item: any): void {
+  public onCategoryChange(item: any): void {
     this.imgSrc = "../assets/image/" + item.value + ".jpg";
   }
 
-  onSubmit() {
+  public onSubmit() {
     if (this.form.valid) {
       this.submit.emit(this.form.value);
     }
