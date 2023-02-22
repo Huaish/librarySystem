@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Book } from './model';
-import { bookData } from './data.book';
+import { bookData } from '../data/data.book';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
-  constructor() {
-  }
+  constructor() {}
 
   private data: unknown[] = null !== localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books') || '{}') : bookData;
 
+  // 產生新的書籍編號
   private generateId(): number {
     let id = 1;
     this.data.forEach((item: any) => {
@@ -21,15 +21,12 @@ export class BookService {
     return id;
   }
 
+  // 取得書籍資料
   public get(): unknown[] {
     return this.data;
   }
 
-  public remove(removeId: number): void {
-    this.data = this.data.filter((item: any) => item.BookId !== removeId);
-    localStorage.setItem('books', JSON.stringify(this.data));
-  }
-
+  // 新增書籍
   public addNewBook(data: Book): void {
     data.BookId = this.generateId();
     let newBook = new Book(data);
@@ -37,5 +34,10 @@ export class BookService {
     localStorage.setItem('books', JSON.stringify(this.data));
   }
 
+  // 刪除書籍
+  public remove(removeId: number): void {
+    this.data = this.data.filter((item: any) => item.BookId !== removeId);
+    localStorage.setItem('books', JSON.stringify(this.data));
+  }
 
 }

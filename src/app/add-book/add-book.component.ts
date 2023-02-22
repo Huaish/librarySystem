@@ -1,5 +1,5 @@
-import { categories } from './../data.categories';
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { categories } from '../../data/data.categories';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 @Component({
