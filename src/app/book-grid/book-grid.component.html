@@ -4,8 +4,8 @@
   [skip]="gridState.skip||0"
   [pageable]="true"
   [sortable]="true"
-  [height]="700"
-  (remove)="removeHandler($event)"
+  [height]="gridHeight"
+  (remove)="removeBookHandler($event)"
   (dataStateChange)="onDataStateChange($event)"
 >
   <ng-template kendoGridToolbarTemplate>

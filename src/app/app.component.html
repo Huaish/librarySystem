@@ -1,19 +1,19 @@
 <main>
   <div class="uk-container align-center">
-    <button class="k-button k-primary" (click)="open($event)">+新增</button>
     <div class="k-overlay" *ngIf="active"></div>
+    <button class="k-button k-primary" (click)="toggleWindow(true)">+新增</button>
     <kendo-window
       title="新增書籍"
       *ngIf="active"
-      [width]="width"
-      [height]="height"
+      [width]="windowWidth"
+      [height]="windowHeight"
       [draggable]="true"
-      (dragEnd)="onDragEnd()"
-      (close)="close()"
+      (dragEnd)="adjustWindowPosition()"
+      (close)="toggleWindow(false)"
       [(top)]="windowTop"
       [(left)]="windowLeft"
     >
-      <app-add-book (submit)="onSubmit($event)"></app-add-book>
+      <app-add-book (submit)="addBookHandler($event)"></app-add-book>
     </kendo-window>
     <div class="uk-padding-small uk-padding-remove-horizontal">
       <app-book-grid [(gridData)]="gridData"></app-book-grid>
