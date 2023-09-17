@@ -8,7 +8,7 @@ import { bookData } from '../data/data.book';
 export class BookService {
   constructor() {}
 
-  private data: unknown[] = null !== localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books') || '{}') : bookData;
+  private data: Book[] = null !== localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books') || '{}') : bookData;
 
   // 產生新的書籍編號
   private generateId(): number {
@@ -22,7 +22,7 @@ export class BookService {
   }
 
   // 取得書籍資料
-  public get(): unknown[] {
+  public get(): Book[] {
     return this.data;
   }
 
@@ -35,6 +35,7 @@ export class BookService {
   }
 
   // 刪除書籍
+  // TODO: rename
   public remove(removeId: number): void {
     this.data = this.data.filter((item: any) => item.BookId !== removeId);
     localStorage.setItem('books', JSON.stringify(this.data));

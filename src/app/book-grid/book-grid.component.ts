@@ -1,3 +1,4 @@
+import { Book } from './../model';
 import { Component, Input, Output, EventEmitter, SimpleChanges, HostListener } from '@angular/core';
 import { RemoveEvent } from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor, filterBy, State } from '@progress/kendo-data-query';
@@ -14,8 +15,8 @@ export class BookGridComponent {
   public searchTerms: string = '';
   public gridHeight = window.innerHeight * 0.7;
 
-  @Input() public gridData: unknown[] = [];
-  @Output() public gridDataChange = new EventEmitter<unknown[]>();
+  @Input() public gridData: Book[] = [];
+  @Output() public gridDataChange = new EventEmitter<Book[]>();
 
   // 當視窗大小改變時，重新調整表格高度
   @HostListener('window:resize', ['$event'])

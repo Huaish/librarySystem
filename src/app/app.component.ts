@@ -14,7 +14,7 @@ export class AppComponent {
   public windowTop =  window.innerHeight / 2 - this.windowHeight / 2;
   public windowLeft = window.innerWidth / 2 - this.windowWidth / 2;
   public active = false;
-  public gridData: unknown[] = this.bookService.get();
+  public gridData: Book[] = this.bookService.get();
 
   @HostListener('window:resize', ['$event'])
   onResize() { this.adjustWindowPosition(); }
